@@ -16,10 +16,10 @@ io.on('connection', socket => {
 
   socket.emit('message', formatMessage(botName, 'Welcome to Chat'));
 
-  socket.broadcast.emit('message', 'A user has joined the chat');
+  socket.broadcast.emit('message', formatMessage('USER', 'A user has joined the chat'));
 
   socket.on('disconnect', () => {
-    io.emit('message', 'A user has left the chat');
+    io.emit('message', formatMessage(botName, 'A user has left the chat'));
   });
 
   socket.on('chatMessage', msg => {

@@ -24,14 +24,14 @@ chatForm.addEventListener('submit', (e) => {
    e.target.elements.msg.value = '';
    e.target.elements.msg.focus();
 });
-
+ 
 
 const outputMessage = (message) => {
   const div = document.createElement('div');
   div.classList.add('message');
-  div.innerHTML = `<p class="meta">Magomed <span>9:12pm</span></p>
+  div.innerHTML = `<p class="meta">${message.username} <span>${message.time}</span></p>
   <p class="text">
-    ${message}
+    ${message.text}
   </p>`;
   document.querySelector('.chat-messages').appendChild(div);
 }
