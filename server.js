@@ -27,15 +27,18 @@ io.on('connection', socket => {
   
   });
 
+  socket.on('chatMessage', msg => {
+    const user = getCurrentUser(socket.id);
+   io.to(user.room).emit('message', formatMessage(user.username, msg));
+ });
+
+
+
   socket.on('disconnect', () => {
     io.emit('message', formatMessage(botName, 'A user has left the chat'));
   });
-  
+});  
 
-  socket.on('chatMessage', msg => {
-    io.emit('message', formatMessage('USER', msg));
-  });
-});
 
 
 const PORT = 3000 || process.env.PORT;
