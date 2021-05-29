@@ -2,6 +2,7 @@ const path = require('path');
 const http = require('http');
 const express = require('express');
 const socketio = require('socket.io')
+const formatMessage = require('./utils/messages');
 
 const app = express();
 const server = http.createServer(app);
@@ -9,9 +10,11 @@ const io = socketio(server);
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+const botName = 'ChatBot';
+
 io.on('connection', socket => {
 
-  socket.emit('message', 'Welcome to Chat');
+  socket.emit('message', formatMessage(botName, 'Welcome to Chat'));
 
   socket.broadcast.emit('message', 'A user has joined the chat');
 
