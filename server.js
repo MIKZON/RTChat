@@ -32,6 +32,8 @@ io.on('connection', socket => {
   
   });
 
+   
+
   socket.on('chatMessage', msg => {
     const user = getCurrentUser(socket.id);
    io.to(user.room).emit('message', formatMessage(user.username, msg));
@@ -44,7 +46,12 @@ io.on('connection', socket => {
 
 
     if (user) {
-    io.to(user.room).emit('message', formatMessage(botName, `${user.username} has left the chat`));
+     io.to(user.room).emit('message', formatMessage(botName, `${user.username} has left the chat`));
+
+     io.to(user.room).emit('roomUsers', {
+     room: user.room, 
+     users: getRoomUsers(user.room)
+    });
     }
   });
 });  
