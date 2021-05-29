@@ -4,9 +4,9 @@ const chatMessages = document.querySelector('.chat-messages');
 const { username, room } = Qs.parse(location.search, {
   ignoreQueryPrefix: true
 })
-console.log(username, room)
-const socket = io(); 
 
+const socket = io(); 
+socket.emit('joinRoom', {username, room });
 
 
 socket.on('message', message => {
